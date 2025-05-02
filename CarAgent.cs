@@ -10,117 +10,103 @@ public class CarAgent : Agent
 {
     
     [Header("Rewards")]
-    [SerializeField] private float penaltyCollision = -10f;   // Штраф за столкновение
+    [SerializeField] private float penaltyCollision = -10f; 
     [SerializeField] private float lateralLimit = 15f;
 
     [Header("Advanced Rewards")]
-    [SerializeField] private float nearMissReward = 1f;      // Награда за близкий проезд
-    [SerializeField] private float nearMissThreshold = 0.10f;   // Считаем близким проездом, если машина ближе 30% от длины луча
-    [SerializeField] private float idleTimePenalty = -0.001f;  // Небольшой штраф за бездействие
+    [SerializeField] private float nearMissReward = 1f;
+    [SerializeField] private float nearMissThreshold = 0.10f;
+    [SerializeField] private float idleTimePenalty = -0.001f;
 
     private int stepsSinceLastReward = 0;
     
     private Rigidbody carRigidbody;
-    private Vector3 initialPosition;     // Сохраняем начальную позицию
-    private Quaternion initialRotation;  // Сохраняем начальное вращение
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
 
     private HashSet<int> rewardedCars = new HashSet<int>();
     private Dictionary<int, float> potentialRewardCars = new Dictionary<int, float>();
 
-private void FixedUpdate()
-{
-    List<int> carsToReward = new List<int>();
+    private void FixedUpdate()
+    {
+        List<int> carsToReward = new List<int>();
 
-    foreach (var carPair in potentialRewardCars)
-    {
-        int carID = carPair.Key;
-        float rewardAmount = carPair.Value;
-        
-        // Проверяем, что машина все еще существует
-        GameObject carObj = FindObjectByInstanceID(carID);
-        if (carObj == null || Vector3.Distance(carObj.transform.position, transform.position) > 10f)
+        foreach (var carPair in potentialRewardCars)
         {
-            // Машина уехала достаточно далеко или была уничтожена - безопасный проезд!
-            AddReward(rewardAmount);
-            //Debug.Log($"Подтверждённый безопасный проезд: награда {rewardAmount:F2}");
-            carsToReward.Add(carID);
-        }
-    }
-    
-    // Удаляем машины, за которые дали награду
-    foreach (var carID in carsToReward)
-    {
-        potentialRewardCars.Remove(carID);
-    }
-    
-    // Получаем все лучи сенсора
-    var sensorComponent = GetComponentInChildren<RayPerceptionSensorComponent3D>();
-    if (sensorComponent != null)
-    {
-        RayPerceptionInput rayInput = sensorComponent.GetRayPerceptionInput();
-        RayPerceptionOutput output = RayPerceptionSensor.Perceive(rayInput, false);
+            int carID = carPair.Key;
+            float rewardAmount = carPair.Value;
         
-        // Проверяем каждый луч
-        for (int i = 0; i < output.RayOutputs.Length; i++)
-        {
-            if (output.RayOutputs[i].HasHit)
+            GameObject carObj = FindObjectByInstanceID(carID);
+            if (carObj == null || Vector3.Distance(carObj.transform.position, transform.position) > 10f)
             {
-                GameObject hitObject = output.RayOutputs[i].HitGameObject;
-                if (hitObject != null && hitObject.CompareTag("car"))
+                AddReward(rewardAmount);
+                carsToReward.Add(carID);
+            }
+        }
+    
+        foreach (var carID in carsToReward)
+        {
+            potentialRewardCars.Remove(carID);
+        }
+    
+        var sensorComponent = GetComponentInChildren<RayPerceptionSensorComponent3D>();
+        if (sensorComponent != null)
+        {
+            RayPerceptionInput rayInput = sensorComponent.GetRayPerceptionInput();
+            RayPerceptionOutput output = RayPerceptionSensor.Perceive(rayInput, false);
+        
+            for (int i = 0; i < output.RayOutputs.Length; i++)
+            {
+                if (output.RayOutputs[i].HasHit)
                 {
-                    // Получаем уникальный ID для этой машины
-                    int carInstanceID = hitObject.GetInstanceID();
-                    
-                    float hitFraction = output.RayOutputs[i].HitFraction;
-                    
-                    // Если машина близко И мы еще не давали награду за эту машину
-                    if (hitFraction < nearMissThreshold && hitFraction > 0.05f && !rewardedCars.Contains(carInstanceID))
+                    GameObject hitObject = output.RayOutputs[i].HitGameObject;
+                    if (hitObject != null && hitObject.CompareTag("car"))
                     {
-                        float proximityFactor = 1.0f - (hitFraction / nearMissThreshold);
-                        float reward = nearMissReward * proximityFactor;
-            
-                        // Вместо немедленной награды, помечаем машину для возможной награды позже
-                        if (!potentialRewardCars.ContainsKey(carInstanceID))
+                        int carInstanceID = hitObject.GetInstanceID();
+                    
+                        float hitFraction = output.RayOutputs[i].HitFraction;
+                    
+                        if (hitFraction < nearMissThreshold && hitFraction > 0.05f && !rewardedCars.Contains(carInstanceID))
                         {
-                            potentialRewardCars.Add(carInstanceID, reward);
-                            //Debug.Log($"Потенциальный близкий проезд: {hitFraction:F2}, награда отложена: {reward:F2}");
-                        }
+                            float proximityFactor = 1.0f - (hitFraction / nearMissThreshold);
+                            float reward = nearMissReward * proximityFactor;
             
-                        rewardedCars.Add(carInstanceID);
+                            if (!potentialRewardCars.ContainsKey(carInstanceID))
+                            {
+                                potentialRewardCars.Add(carInstanceID, reward);
+                            }
+            
+                            rewardedCars.Add(carInstanceID);
+                        }
                     }
                 }
             }
         }
     }
-}
-private GameObject FindObjectByInstanceID(int instanceID)
-{
-    // Не очень эффективно, но работает для демонстрации
-    foreach (var obj in FindObjectsOfType<GameObject>())
+    private GameObject FindObjectByInstanceID(int instanceID)
     {
-        if (obj.GetInstanceID() == instanceID)
-            return obj;
+        foreach (var obj in FindObjectsOfType<GameObject>())
+        {
+            if (obj.GetInstanceID() == instanceID)
+                return obj;
+        }
+        return null;
     }
-    return null;
-}
-// Метод для удаления машины из отслеживания через указанное время
-private IEnumerator RemoveCarFromTracking(int carID, float delay)
-{
-    yield return new WaitForSeconds(delay);
-    rewardedCars.Remove(carID);
-}
+    private IEnumerator RemoveCarFromTracking(int carID, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        rewardedCars.Remove(carID);
+    }
     public override void Initialize()
     {
         carRigidbody = GetComponent<Rigidbody>();
         
-        // Сохраняем начальную позицию и вращение при старте
         initialPosition = transform.position;
         initialRotation = transform.rotation;
     }
 
     public override void OnEpisodeBegin()
     {
-        // Сброс к сохраненной начальной позиции и вращению
         transform.position = initialPosition;
         transform.rotation = initialRotation;
         
@@ -135,38 +121,29 @@ private IEnumerator RemoveCarFromTracking(int carID, float delay)
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        // Предположим, что дорога находится в диапазоне от initialX - lateralLimit до initialX + lateralLimit
         float leftEdge = initialPosition.x - lateralLimit;
         float rightEdge = initialPosition.x + lateralLimit;
     
-        // Нормализуем позицию от -1 (левый край) до 1 (правый край)
         float normalizedPosition = (2 * (transform.position.x - leftEdge) / (rightEdge - leftEdge)) - 1;
     
-        // Ограничиваем значение в диапазоне [-1, 1] для безопасности
         normalizedPosition = Mathf.Clamp(normalizedPosition, -1f, 1f);
     
         sensor.AddObservation(normalizedPosition);
-}
+    }
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        // Получаем действие агента (смещение влево/вправо)
-        float lateralMovement = actions.ContinuousActions[0]; // от -1 до 1
+        float lateralMovement = actions.ContinuousActions[0];
+        float maxLateralSpeed = 10f;
     
-        // Рассчитываем максимальную скорость бокового движения
-        float maxLateralSpeed = 10f; // Настройте по ощущениям
-    
-        // Применяем боковое смещение
         Vector3 movement = new Vector3(lateralMovement * maxLateralSpeed * Time.fixedDeltaTime, 0, 0);
         transform.position += movement;
     
-        // Ограничиваем положение машины относительно начальной позиции
         Vector3 currentPos = transform.position;
         float initialX = initialPosition.x;
         currentPos.x = Mathf.Clamp(currentPos.x, initialX - lateralLimit, initialX + lateralLimit);
         transform.position = currentPos;
     
-        // Машина всегда смотрит вперёд
         transform.rotation = initialRotation;
     }
 
@@ -185,13 +162,12 @@ private IEnumerator RemoveCarFromTracking(int carID, float delay)
     {
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
     
-        // Используйте новую систему ввода
         Vector2 move = Keyboard.current != null 
             ? new Vector2(
                 Keyboard.current.aKey.isPressed ? -1f : (Keyboard.current.dKey.isPressed ? 1f : 0f),
                 Keyboard.current.wKey.isPressed ? 1f : (Keyboard.current.sKey.isPressed ? -1f : 0f))
             : Vector2.zero;
     
-        continuousActions[0] = move.x; // Горизонтальное управление
-}
+        continuousActions[0] = move.x;
+    }
 }

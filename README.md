@@ -1,1 +1,0 @@
-Project ML_Game for UPPRPRO course.

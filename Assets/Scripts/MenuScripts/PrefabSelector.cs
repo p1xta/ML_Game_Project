@@ -3,18 +3,6 @@ using UnityEngine.UI;
 
 public class PrefabButton : MonoBehaviour
 {
-    public GameObject prefabToPlace;
-    public LevelEditor levelEditor;
+    public GameObject prefab;
 
-    void Start()
-    {
-        GetComponent<Button>().onClick.AddListener(SelectPrefab);
-    }
-    void SelectPrefab()
-    {
-        if (levelEditor != null && prefabToPlace != null)
-        {
-            levelEditor.SelectPrefab(prefabToPlace);
-        }
-    }
 }

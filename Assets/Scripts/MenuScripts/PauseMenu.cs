@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuCanvas;
-    public GameObject mainMenuCanvas;
 
     public Button resumeButton;
     public Button returnToMenuButton;
@@ -46,16 +45,16 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         GameState.IsGameActive = false;
-        pauseMenuCanvas.SetActive(false);
-        mainMenuCanvas.SetActive(true);
-        for (int i = 0; i < SceneManager.sceneCount; i++)
+
+        if (!SceneManager.GetSceneByName("MenuScene").isLoaded)
         {
-            Scene scene = SceneManager.GetSceneAt(i);
-            if (scene.name != "MenuScene")
-            {
-                SceneManager.UnloadSceneAsync(scene);
-            }
+            SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
         }
+        else
+        {
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("MenuScene"));
+        }
+
     }
 
     public void QuitGame()

@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class Rotate : MonoBehaviour
 {
-    public Vector3 rotationAxis = Vector3.up;
-    public float rotationSpeed = 30f;
+    public Vector3 rotationSpeed = new Vector3(0f, 90f, 0f);
+    private levelEditor editor;
 
+    void Start()
+    {
+        editor = FindFirstObjectByType<levelEditor>();
+    }
     void Update()
     {
-        transform.Rotate(rotationAxis.normalized, rotationSpeed * Time.deltaTime, Space.Self);
+        if (editor != null && editor.EditingDone)
+        {
+            transform.Rotate(rotationSpeed * Time.deltaTime);
+        }
     }
 }

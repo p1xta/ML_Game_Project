@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5539654584078701525}
   - component: {fileID: 1383507501916754304}
   - component: {fileID: 6994012955106865397}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wheel_FL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 152084750930280616}
   - component: {fileID: 7706879187939579994}
   - component: {fileID: 217221730452642699}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wheel_FR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 2392053318989362072}
   - component: {fileID: 4482138815116571603}
   - component: {fileID: 8519887376075488833}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Car Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 1065542415204757311}
   - component: {fileID: 6083988330142874430}
   - component: {fileID: 2435047208461588569}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wheel_RL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,9 +355,11 @@ GameObject:
   - component: {fileID: 7805030157981824191}
   - component: {fileID: 2924358596174411967}
   - component: {fileID: 6641810711744362193}
-  m_Layer: 0
+  - component: {fileID: 8670555820132906224}
+  - component: {fileID: 4883271084040174378}
+  m_Layer: 3
   m_Name: Vehicle_Police Car_separate
-  m_TagString: Untagged
+  m_TagString: car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -417,6 +419,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 60
   deactivateZ: -335.6
+--- !u!64 &8670555820132906224
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8730026529154577870}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: c89ff10cad1be9a4e83cf49bf466e148, type: 3}
+--- !u!54 &4883271084040174378
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8730026529154577870}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!1 &9132859214501260211
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +479,7 @@ GameObject:
   - component: {fileID: 2956217868875069204}
   - component: {fileID: 4413194467435231579}
   - component: {fileID: 8172487206027953598}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wheel_RR
   m_TagString: Untagged
   m_Icon: {fileID: 0}

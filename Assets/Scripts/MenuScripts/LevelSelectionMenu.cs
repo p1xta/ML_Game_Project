@@ -26,7 +26,7 @@ public class LevelSelectionMenu : MonoBehaviour
 
     void StartGameBoat()
     {
-        LoadLevel("LevelBoat");
+        LoadLevel("LevelPlane");
     }
 
     void StartGameCar()
@@ -52,38 +52,8 @@ public class LevelSelectionMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        // Загружаем выбранную сцену как основную, выгружая остальные
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
-
-    //void LoadLevel(string levelSceneName)
-    //{
-    //    GameState.IsGameActive = true;
-    //    Cursor.lockState = CursorLockMode.Locked;
-    //    Cursor.visible = false;
-
-    //    if (!string.IsNullOrEmpty(currentLevelScene) && SceneManager.GetSceneByName(currentLevelScene).isLoaded)
-    //    {
-    //        SceneManager.UnloadSceneAsync(currentLevelScene);
-    //    }
-
-    //    SceneManager.LoadScene(levelSceneName, LoadSceneMode.Additive);
-    //    SceneManager.sceneLoaded += OnSceneLoaded;
-
-    //    currentLevelScene = levelSceneName;
-
-    //    mainMenuCanvas.SetActive(false);
-    //    levelSelectionCanvas.SetActive(false);
-    //}
-
-    //void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    //{
-    //    if (scene.name == currentLevelScene)
-    //    {
-    //        SceneManager.SetActiveScene(scene);
-    //        SceneManager.sceneLoaded -= OnSceneLoaded;
-    //    }
-    //}
 
     public void ReturnToMainMenu()
     {

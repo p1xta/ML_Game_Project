@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class levelEditor : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class levelEditor : MonoBehaviour
     {
         planeOffset = plane.position;
         doneButton.onClick.AddListener(FinishEditing);
+        //editorCanvas.SetActive(false);
 
         for (int i = 0; i < prefabButtons.Length; i++)
         {
@@ -52,7 +54,18 @@ public class levelEditor : MonoBehaviour
 
                 Vector3 worldPos = plane.TransformPoint(snappedLocalPos);
 
-                previewObject.transform.position = new Vector3(worldPos.x, plane.position.y + 0.5f, worldPos.z);
+                float yPos = plane.position.y + 0.5f;
+                float xPos = worldPos.x;
+                float zPos = worldPos.z;
+
+                if (currentPrefab.CompareTag("obstacle"))
+                {
+                    yPos += 5f;
+                    xPos += 5f;
+                    zPos += 5f;
+                }
+
+                previewObject.transform.position = new Vector3(xPos, yPos, zPos);
                 //previewObject.transform.rotation = Quaternion.Euler(0f, currentRotationY, 0f);
                 //previewObject.transform.position = newPos;
                 //previewObject.transform.rotation = Quaternion.identity;
@@ -63,6 +76,7 @@ public class levelEditor : MonoBehaviour
             {
                 currentRotationY += 90f;
                 if (currentRotationY >= 360f) currentRotationY = 0f;
+                previewObject.transform.rotation = Quaternion.Euler(0f, currentRotationY, 0f);
             }
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
@@ -93,15 +107,18 @@ public class levelEditor : MonoBehaviour
                 }
                 previewObject = Instantiate(currentPrefab);
                 SetPreviewMaterial(previewObject);
+                currentRotationY = 0f;
+                previewObject.transform.rotation = Quaternion.Euler(0f, currentRotationY, 0f);
             }
         }
+        Debug.Log("Selected prefab " + currentPrefab.name);
     }
 
     void PlaceObject()
     {
         if (currentPrefab != null && previewObject != null)
         {
-            GameObject placedObject = Instantiate(currentPrefab, previewObject.transform.position, Quaternion.identity);
+            GameObject placedObject = Instantiate(currentPrefab, previewObject.transform.position, previewObject.transform.rotation);
             ResetMaterial(placedObject);
         }
     }

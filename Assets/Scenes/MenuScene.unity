@@ -2073,11 +2073,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 487261462339046115, guid: c7818f0bb9ed2db4ab7257573534a387, type: 3}
       propertyPath: m_text
-      value: BOAT
+      value: PLANE
       objectReference: {fileID: 0}
     - target: {fileID: 4034602713212814296, guid: c7818f0bb9ed2db4ab7257573534a387, type: 3}
       propertyPath: m_Name
-      value: BoatButton
+      value: PlaneButton
       objectReference: {fileID: 0}
     - target: {fileID: 6716392196276145417, guid: c7818f0bb9ed2db4ab7257573534a387, type: 3}
       propertyPath: m_SizeDelta.y

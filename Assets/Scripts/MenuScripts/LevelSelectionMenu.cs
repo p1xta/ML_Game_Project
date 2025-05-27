@@ -42,8 +42,7 @@ public class LevelSelectionMenu : MonoBehaviour
     void StartGameManInteractive()
     {
         LoadLevel("LevelManInteractive");
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        
     }
 
     void LoadLevel(string sceneName)

@@ -24,7 +24,9 @@ public class levelEditor : MonoBehaviour
     {
         planeOffset = plane.position;
         doneButton.onClick.AddListener(FinishEditing);
-        //editorCanvas.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        editorCanvas.SetActive(false);
 
         for (int i = 0; i < prefabButtons.Length; i++)
         {
@@ -35,6 +37,10 @@ public class levelEditor : MonoBehaviour
 
     void Update()
     {
+        if (GameState.IsGameActive && !editingDone)
+        {
+            editorCanvas.SetActive(true);
+        }
         if (isPlacing && previewObject != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -61,6 +67,12 @@ public class levelEditor : MonoBehaviour
                 if (currentPrefab.CompareTag("obstacle"))
                 {
                     yPos += 5f;
+                    xPos += 5f;
+                    zPos += 5f;
+                }
+                if (currentPrefab.CompareTag("highObstacle"))
+                {
+                    yPos += 13f;
                     xPos += 5f;
                     zPos += 5f;
                 }
@@ -156,6 +168,9 @@ public class levelEditor : MonoBehaviour
     void FinishEditing()
     {
         editingDone = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
+        editorCanvas.SetActive(false);
         if (previewObject != null)
         {
             Destroy(previewObject);

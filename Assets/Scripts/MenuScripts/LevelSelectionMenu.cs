@@ -9,7 +9,7 @@ public class LevelSelectionMenu : MonoBehaviour
     public GameObject levelSelectionCanvas;
 
     public Button backButton;
-    public Button boatButton;
+    public Button planeButton;
     public Button carButton;
     public Button manZenButton;
     public Button manInteractiveButton;
@@ -17,14 +17,14 @@ public class LevelSelectionMenu : MonoBehaviour
     private string currentLevelScene = "";
     void Start()
     {
-        boatButton.onClick.AddListener(StartGameBoat);
+        planeButton.onClick.AddListener(StartGamePlane);
         carButton.onClick.AddListener(StartGameCar);
         manZenButton.onClick.AddListener(StartGameManZen);
         manInteractiveButton.onClick.AddListener(StartGameManInteractive);
         backButton.onClick.AddListener(ReturnToMainMenu);
     }
 
-    void StartGameBoat()
+    void StartGamePlane()
     {
         LoadLevel("LevelPlane");
     }

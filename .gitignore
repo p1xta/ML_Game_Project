@@ -89,6 +89,8 @@ crashlytics-build.properties
 /Assets/Platformer Starter Pack_Standard
 /Assets/*.meta
 /Assets/**/*.meta
+/Assets/Thaleah_PixelFont
+/Assets/OArielG
 
 ProjectSettings
 Packages

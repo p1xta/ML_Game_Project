@@ -26,7 +26,7 @@ public class LevelSelectionMenu : MonoBehaviour
 
     void StartGamePlane()
     {
-        LoadLevel("LevelPlane");
+        LoadLevel("PlaneCourse");
     }
 
     void StartGameCar()
@@ -48,6 +48,7 @@ public class LevelSelectionMenu : MonoBehaviour
     void LoadLevel(string sceneName)
     {
         GameState.IsGameActive = true;
+        Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 

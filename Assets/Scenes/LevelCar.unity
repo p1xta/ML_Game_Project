@@ -267,6 +267,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1928070196}
+    - target: {fileID: 5604169280133725328, guid: 4227eff3089f4a448b5745e3d02a60d6, type: 3}
+      propertyPath: maxSpawnTime
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604169280133725328, guid: 4227eff3089f4a448b5745e3d02a60d6, type: 3}
+      propertyPath: minSpawnTime
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 6075112556080898486, guid: 4227eff3089f4a448b5745e3d02a60d6, type: 3}
       propertyPath: m_Mesh
       value: 

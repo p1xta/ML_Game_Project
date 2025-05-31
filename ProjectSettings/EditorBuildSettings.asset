@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MenuScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/LevelManZen.unity
+    guid: 120cc542898cb4940b74019a2f29b188
+  - enabled: 1
+    path: Assets/Scenes/LevelCar.unity
+    guid: 177b43d733820e14eb090a2011968138
+  - enabled: 1
+    path: Assets/Scenes/LevelManInteractive.unity
+    guid: 412c5b9a47e84ab4693a1005c5e0bdfd
+  - enabled: 0
+    path: Assets/Scenes/LevelPlane.unity
+    guid: 31258b5f2e244f848b100d6829166a88
+  - enabled: 1
+    path: Assets/PlaneCourse/PlaneCourse.unity
+    guid: 83c5d71c42dcde14e8a879fb9b808d0c
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
+  m_UseUCBPForAssetBundles: 0

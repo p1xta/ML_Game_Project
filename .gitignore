@@ -87,10 +87,9 @@ crashlytics-build.properties
 /Assets/ML-Agents
 /Assets/POLY STYLE - Platformer Starter Pack
 /Assets/Platformer Starter Pack_Standard
-/Assets/*.meta
-/Assets/**/*.meta
 /Assets/Thaleah_PixelFont
 /Assets/OArielG
+/Assets/WSATestCertificate.pfx
 
 .vsconfig
 Assembly-CSharp.csproj

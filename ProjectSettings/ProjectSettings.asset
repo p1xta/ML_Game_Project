@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: UPPRPO
   productName: ML_Game_project
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -675,16 +675,16 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: ML_Game_project
-  metroPackageVersion: 
-  metroCertificatePath: 
-  metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroPackageName: MLGameproject
+  metroPackageVersion: 1.0.0.0
+  metroCertificatePath: Assets/WSATestCertificate.pfx
+  metroCertificatePassword: y||~|c>?5?<;>5
+  metroCertificateSubject: UPPRPO
+  metroCertificateIssuer: UPPRPO
+  metroCertificateNotAfter: 00c4569d27f1dc01
   metroApplicationDescription: ML_Game_project
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: ML_Game_project
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0

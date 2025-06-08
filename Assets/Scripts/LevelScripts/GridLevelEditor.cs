@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using Unity.MLAgents;
 
 public class levelEditor : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class levelEditor : MonoBehaviour
     public Button[] prefabButtons;
     public Button doneButton;
     private float gridSize = 1f;
+    public GameObject trainedAgentPrefab;
+    private GameObject agentInstance;
 
     private GameObject currentPrefab;
     private GameObject previewObject;
@@ -64,7 +67,7 @@ public class levelEditor : MonoBehaviour
                 float xPos = worldPos.x;
                 float zPos = worldPos.z;
 
-                if (currentPrefab.CompareTag("obstacle"))
+                if (currentPrefab.CompareTag("obstacle") || currentPrefab.CompareTag("spawn") || currentPrefab.CompareTag("finish"))
                 {
                     yPos += 5f;
                     xPos += 5f;
@@ -78,10 +81,6 @@ public class levelEditor : MonoBehaviour
                 }
 
                 previewObject.transform.position = new Vector3(xPos, yPos, zPos);
-                //previewObject.transform.rotation = Quaternion.Euler(0f, currentRotationY, 0f);
-                //previewObject.transform.position = newPos;
-                //previewObject.transform.rotation = Quaternion.identity;
-                //previewObject.transform.RotateAround(newPos, Vector3.up, currentRotationY);
             }
 
             if (Input.GetKeyDown(KeyCode.Space))
@@ -123,7 +122,7 @@ public class levelEditor : MonoBehaviour
                 previewObject.transform.rotation = Quaternion.Euler(0f, currentRotationY, 0f);
             }
         }
-        Debug.Log("Selected prefab " + currentPrefab.name);
+        //Debug.Log("Selected prefab " + currentPrefab.name);
     }
 
     void PlaceObject()
@@ -176,6 +175,23 @@ public class levelEditor : MonoBehaviour
             Destroy(previewObject);
             previewObject = null;
             isPlacing = false;
+        }
+        GameObject spawnPoint = GameObject.FindGameObjectWithTag("spawn");
+        GameObject finishPoint = GameObject.FindGameObjectWithTag("finish");
+
+        if (spawnPoint != null && finishPoint != null)
+        {
+            //Instantiate(trainedAgentPrefab, spawnPoint.transform.position, Quaternion.identity);
+            GameObject agentInstance = Instantiate(trainedAgentPrefab);
+            agentInstance.transform.position = spawnPoint.transform.position;
+            agentInstance.transform.rotation = Quaternion.identity;
+
+
+            //var controller = agentInstance.GetComponent<ObstacleAgentInteractive>();
+        }
+        else
+        {
+            Debug.LogError("Spawn or Finish point not found!");
         }
     }
 

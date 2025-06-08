@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Aircraft
@@ -26,11 +27,14 @@ namespace Aircraft
                 // Gets the place and updates the text
                 string place = raceManager.GetAgentPlace(raceManager.FollowAgent);
                 this.placeText.text = place + " PLACE";
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
         }
         public void MainMenuButtonClicked()
         {
-            GameManager.Instance.LoadLevel("MenuScene");
+            //GameManager.Instance.LoadLevel("MenuScene");
+            SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
         }
     }
 }

@@ -10,19 +10,28 @@ TagManager:
   - car
   - obstacle
   - highObstacle
+  - ground
+  - spawn
+  - goal
+  - wall
+  - pit
+  - spit
+  - bridge
+  - moving
+  - finish
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - finish
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - ground
+  - pit
+  - obstacle
+  - highObstacle
+  - finish
+  - spawn
   - 
   - 
   - 

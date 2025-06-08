@@ -2343,6 +2343,7 @@ MonoBehaviour:
   - {fileID: 1165221355}
   - {fileID: 1345461138}
   doneButton: {fileID: 503430428}
+  trainedAgentPrefab: {fileID: 953143706046801135, guid: f96c1bd974490ab44959b618ba397f7a, type: 3}
 --- !u!1001 &1709864457
 PrefabInstance:
   m_ObjectHideFlags: 0

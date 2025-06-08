@@ -332,7 +332,7 @@ public class ObstacleAgent : Agent
             // Небольшая постоянная награда за движение в правильном направлении
             if (rb.linearVelocity.magnitude > 0.5f && dot > 0.5f)
             {
-                AddReward(0.0005f); // Очень маленькая, но постоянная награда
+                AddReward(0.0005f);
             }
             
             AddReward(-0.0002f);
@@ -448,7 +448,6 @@ public class ObstacleAgent : Agent
     }
     // void OnTriggerStay(Collider other)
     // {
-    //     // Дублируем проверку в OnTriggerStay для надежности при высокой скорости
     //     if (other.CompareTag("pit"))
     //     {
     //         HandlePitCollision(other);

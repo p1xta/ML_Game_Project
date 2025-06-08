@@ -63,10 +63,23 @@ public class ObstacleAgentInteractive : Agent
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        GameObject spawnPoint = GameObject.FindGameObjectWithTag("spawn");
+
+        if (spawnPoint != null)
+        {
+            spawnPosition = spawnPoint.transform.position;
+            spawnRotation = spawnPoint.transform.rotation;
+        }
+        else
+        {
+            Debug.LogError("[SPAWN INIT] Spawn point with tag 'spawn' not found! Using current transform.");
+            spawnPosition = transform.position;
+            spawnRotation = transform.rotation;
+        }
 
         //spawnPosition = transform.position;
         //spawnRotation = transform.rotation;
-        
+
         Debug.Log($"[SPAWN INIT] Agent {name} spawn position set to: {spawnPosition}");
         Debug.Log($"[SPAWN INIT] Agent {name} current transform.position: {transform.position}");
         Debug.Log($"[SPAWN INIT] Agent {name} spawnAreaOffset: {spawnAreaOffset}");

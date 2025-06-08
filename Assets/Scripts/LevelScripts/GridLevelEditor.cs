@@ -181,13 +181,9 @@ public class levelEditor : MonoBehaviour
 
         if (spawnPoint != null && finishPoint != null)
         {
-            //Instantiate(trainedAgentPrefab, spawnPoint.transform.position, Quaternion.identity);
             GameObject agentInstance = Instantiate(trainedAgentPrefab);
             agentInstance.transform.position = spawnPoint.transform.position;
             agentInstance.transform.rotation = Quaternion.identity;
-
-
-            //var controller = agentInstance.GetComponent<ObstacleAgentInteractive>();
         }
         else
         {

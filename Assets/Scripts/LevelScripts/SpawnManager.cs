@@ -11,12 +11,6 @@ public class SpawnManager : MonoBehaviour
         roadSpawner = GetComponent<RoadSpawner>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SpawnTriggerEntered()
     {
         roadSpawner.MoveRoad();

@@ -74,6 +74,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # packages with assets required
+/Assets/**/*.meta
 /Assets/3D Cartoon Village
 /Assets/DigitalKonstrukt
 /Assets/Downtown Game Studio

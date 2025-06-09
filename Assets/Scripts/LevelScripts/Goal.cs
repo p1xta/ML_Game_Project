@@ -1,27 +1,27 @@
 using UnityEngine;
 
 public class Goal : MonoBehaviour
-{
-    [Header("Goal Settings")]
-    public float collectReward = 5f; 
-    public Vector3 offsetPosition = new Vector3(5f, 0f, 0f);
+{    [Header("Goal Settings")]
+    public float collectReward = 10f; // Увеличена награда за сбор цели для более значимого обучения[Header("Teleport Settings")]
+    public Vector3 offsetPosition = new Vector3(5f, 0f, 0f); // Смещение от начальной позиции
     
     private Vector3 initialPosition;
-    private bool isAtOffset = false;
-    private bool isBeingCollected = false;
-    private float lastCollectionTime = 0f;
+    private bool isAtOffset = false; // Находится ли цель в смещенной позиции
+    private bool isBeingCollected = false; // Флаг для предотвращения двойного срабатывания
+    private float lastCollectionTime = 0f; // Время последнего сбора
       void Start()
     {
         initialPosition = transform.position;
-    }void OnTriggerEnter(Collider other)
+    }    void OnTriggerEnter(Collider other)
     {
+        // Проверка на валидность объектов перед обработкой
+        if (other == null || transform == null) return;
         
+        // Улучшенная защита от множественных срабатываний
         if (other.CompareTag("Player") && !isBeingCollected && (Time.time - lastCollectionTime > 0.5f))
-        {   
-            Debug.Log($"[GOAL {name}] COLLECTING GOAL! Position before: {transform.position}, isAtOffset={isAtOffset}");
-            
-            isBeingCollected = true;
-            lastCollectionTime = Time.time;
+        {               
+            isBeingCollected = true; // Блокируем повторные срабатывания
+            lastCollectionTime = Time.time; // Записываем время сбора
             
             ObstacleAgent agent = other.GetComponent<ObstacleAgent>();
             if (agent != null)
@@ -34,9 +34,10 @@ public class Goal : MonoBehaviour
                 agent.FindNextGoal();
                 
             }
+            // Сбрасываем флаг через более длительное время
             Invoke(nameof(ResetCollectionFlag), 0.5f);
         }
-    }    void ResetCollectionFlag()
+    }void ResetCollectionFlag()
     {
         isBeingCollected = false;
     }    void TogglePosition()
@@ -44,58 +45,55 @@ public class Goal : MonoBehaviour
         
         if (!isAtOffset)
         {
+            // Смещаемся в сторону
             Vector3 newPosition = initialPosition + offsetPosition;
             transform.position = newPosition;
             isAtOffset = true;
         }        else
         {   
+            // Возвращаемся обратно - это второе взятие цели, завершаем уровень
             transform.position = initialPosition;
             isAtOffset = false;
-            Debug.Log($"[GOAL {name}] RETURNED TO INITIAL POSITION: {initialPosition} - COMPLETING LEVEL!");
             
+            // Находим агента в родительском уровне
             ObstacleAgent agent = transform.parent.GetComponentInChildren<ObstacleAgent>();
             if (agent != null)
             {
-                Debug.Log($"[GOAL {name}] Calling agent.CompleteLevel() for agent '{agent.name}' in level '{transform.parent.name}'");
                 agent.CompleteLevel();
-            }
-            else
-            {
-                Debug.LogError($"[GOAL {name}] Agent not found in level '{transform.parent.name}' for CompleteLevel!");
+                return; // Немедленно прекращаем выполнение после завершения уровня
             }
         }
         
-        Debug.Log($"[GOAL {name}] TogglePosition finished - new state: isAtOffset={isAtOffset}, position={transform.position}");
     }    public void ResetToInitialPosition()
     {
-        Debug.Log($"[GOAL {name}] ResetToInitialPosition called - current: pos={transform.position}, isAtOffset={isAtOffset}");
         
         if (isAtOffset)
         {
             transform.position = initialPosition;
             isAtOffset = false;
-            Debug.Log($"[GOAL {name}] RESET TO INITIAL: {initialPosition}");
         }
         else
         {
-            Debug.Log($"[GOAL {name}] Already at initial position, no reset needed");
         }
         
-        isBeingCollected = false;
-        lastCollectionTime = 0f;
-        Debug.Log($"[GOAL {name}] Reset completed - flags cleared");
+        isBeingCollected = false; // Также сбрасываем флаг
+        lastCollectionTime = 0f; // Сбрасываем время
     }
     
     void OnDrawGizmosSelected()
     {
+        // Визуализируем обе позиции
         Vector3 basePos = Application.isPlaying ? initialPosition : transform.position;
         
+        // Начальная позиция
         Gizmos.color = !isAtOffset ? Color.green : Color.cyan;
         Gizmos.DrawWireSphere(basePos, 0.5f);
         
+        // Смещенная позиция
         Gizmos.color = isAtOffset ? Color.green : Color.cyan;
         Gizmos.DrawWireSphere(basePos + offsetPosition, 0.5f);
         
+        // Линия между позициями
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(basePos, basePos + offsetPosition);
     }

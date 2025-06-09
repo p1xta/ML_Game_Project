@@ -187,9 +187,25 @@ PrefabInstance:
       propertyPath: m_RayLayerMask.m_Bits
       value: 4294960264
       objectReference: {fileID: 0}
+    - target: {fileID: 3095768703073649507, guid: afbf246851ccf0743a007fcec5b4ea42, type: 3}
+      propertyPath: m_Size.y
+      value: 27.120512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3095768703073649507, guid: afbf246851ccf0743a007fcec5b4ea42, type: 3}
+      propertyPath: m_Center.y
+      value: -8.000299
+      objectReference: {fileID: 0}
     - target: {fileID: 3268971397834615390, guid: afbf246851ccf0743a007fcec5b4ea42, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360456293573247079, guid: afbf246851ccf0743a007fcec5b4ea42, type: 3}
+      propertyPath: m_Size.y
+      value: 38.820427
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360456293573247079, guid: afbf246851ccf0743a007fcec5b4ea42, type: 3}
+      propertyPath: m_Center.y
+      value: -2.8595119
       objectReference: {fileID: 0}
     - target: {fileID: 4152171014089463083, guid: afbf246851ccf0743a007fcec5b4ea42, type: 3}
       propertyPath: groundMask.m_Bits

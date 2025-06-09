@@ -75,6 +75,7 @@ crashlytics-build.properties
 
 # packages with assets required
 /Assets/**/*.meta
+/Assets/WSATestCertificate.pfx.meta
 /Assets/3D Cartoon Village
 /Assets/DigitalKonstrukt
 /Assets/Downtown Game Studio

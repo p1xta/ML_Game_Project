@@ -23,6 +23,7 @@ public class PauseMenu : MonoBehaviour
             Pause();
         }
     }
+    // sets the game on pause
     public void Pause()
     {
         GameState.IsGameActive = false;
@@ -31,7 +32,7 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
-
+    // stops the pause to continue playing
     void Resume()
     {
         pauseMenuCanvas.SetActive(false);

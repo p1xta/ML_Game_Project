@@ -23,6 +23,7 @@ public class levelEditor : MonoBehaviour
 
     private float currentRotationY = 0f;
 
+    // initiates a level and buttons to place prefabs
     void Start()
     {
         planeOffset = plane.position;
@@ -38,6 +39,7 @@ public class levelEditor : MonoBehaviour
         }
     }
 
+    // updates the level to place / remove / rotate prefabs 
     void Update()
     {
         if (GameState.IsGameActive && !editingDone)
@@ -101,6 +103,7 @@ public class levelEditor : MonoBehaviour
         }
     }
 
+    // chooses prefab by button index and makes a preview of its placement
     void SelectPrefab(int buttonIndex)
     {
         if (buttonIndex < prefabButtons.Length)
@@ -125,6 +128,7 @@ public class levelEditor : MonoBehaviour
         //Debug.Log("Selected prefab " + currentPrefab.name);
     }
 
+    // creates an instance of prefab on the level
     void PlaceObject()
     {
         if (currentPrefab != null && previewObject != null)
@@ -134,6 +138,7 @@ public class levelEditor : MonoBehaviour
         }
     }
 
+    // removes the prefab you click on with right mouse button
     void RemoveObject()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -146,6 +151,7 @@ public class levelEditor : MonoBehaviour
         }
     }
 
+    // makes the preview prefab transparent
     void SetPreviewMaterial(GameObject obj)
     {
         foreach (var renderer in obj.GetComponentsInChildren<Renderer>())
@@ -155,6 +161,7 @@ public class levelEditor : MonoBehaviour
         }
     }
 
+    // called when the prefab is placed to set the material to normal
     void ResetMaterial(GameObject obj)
     {
         foreach (var renderer in obj.GetComponentsInChildren<Renderer>())
@@ -164,6 +171,9 @@ public class levelEditor : MonoBehaviour
         }
     }
 
+    // called when the "Done" button is pressed.
+    // creates an ML-Agent and starts the level
+    // gives player an ability to control the camera
     void FinishEditing()
     {
         editingDone = true;

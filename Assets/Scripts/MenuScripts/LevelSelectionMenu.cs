@@ -44,7 +44,7 @@ public class LevelSelectionMenu : MonoBehaviour
         LoadLevel("LevelManInteractive");
         
     }
-
+    // loads each level individually by name of the scene
     void LoadLevel(string sceneName)
     {
         GameState.IsGameActive = true;

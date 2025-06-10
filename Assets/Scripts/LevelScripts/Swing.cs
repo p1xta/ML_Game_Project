@@ -14,6 +14,7 @@ public class Swing : MonoBehaviour
         startRotation = transform.localRotation;
     }
 
+    // script for the hammer obstacle to swing
     void Update()
     {
         if (editor != null && editor.EditingDone)

@@ -14,7 +14,7 @@ public class Move : MonoBehaviour
         editor = FindFirstObjectByType<levelEditor>();
         startPos = transform.position;
     }
-
+    // script for the blade obstacle to move
     void Update()
     {
         if (editor != null && editor.EditingDone)

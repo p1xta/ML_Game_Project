@@ -9,6 +9,8 @@ public class Rotate : MonoBehaviour
     {
         editor = FindFirstObjectByType<levelEditor>();
     }
+
+    // script for the obstacles to rotate
     void Update()
     {
         if (editor != null && editor.EditingDone)
